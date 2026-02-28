@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Influencer Dashboard - Smart Influencing</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/dashboard.css">
+</head>
+<body>
+    <div class="dashboard">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <h2>Smart Influencing</h2>
+            </div>
+            <nav class="sidebar-nav">
+                <a href="#" class="nav-item active" onclick="switchTab('overview', event)">
+                    <span class="icon">📊</span> Overview
+                </a>
+                <a href="#" class="nav-item" onclick="switchTab('profile', event)">
+                    <span class="icon">👤</span> Profile
+                </a>
+                <a href="#" class="nav-item" onclick="switchTab('campaigns', event)">
+                    <span class="icon">📋</span> Campaigns
+                </a>
+                <a href="#" class="nav-item" onclick="switchTab('applied', event)">
+                    <span class="icon">📝</span> Applied Campaigns
+                </a>
+                <a href="#" class="nav-item" onclick="switchTab('works', event)">
+                    <span class="icon">✅</span> My Work History
+                </a>
+                <a href="#" class="nav-item" onclick="switchTab('wallet', event)">
+                    <span class="icon">💰</span> Wallet
+                </a>
+                <a href="#" class="nav-item" onclick="switchTab('chat', event)">
+                    <span class="icon">💬</span> Messages
+                </a>
+                <a href="#" class="nav-item" onclick="logout()">
+                    <span class="icon">🚪</span> Logout
+                </a>
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Header -->
+            <header class="dashboard-header">
+                <div>
+                    <h1 id="pageTitle">Influencer Dashboard</h1>
+                    <p id="pageSubtitle">Welcome back!</p>
+                </div>
+                <div class="user-info">
+                    <span id="userName">User</span>
+                    <img src="https://via.placeholder.com/40" alt="Profile" class="avatar">
+                </div>
+            </header>
+
+            <!-- Tabs Content -->
+            <div class="content">
+                <!-- Overview Tab -->
+                <div id="overview-tab" class="tab-content active">
+                    <div class="stats-grid">
+                        <div class="stat-card">
+                            <h3>Total Earnings</h3>
+                            <p class="stat-value" id="totalEarnings">$0.00</p>
+                        </div>
+                        <div class="stat-card">
+                            <h3>Rating</h3>
+                            <p class="stat-value" id="userRating">⭐ 0.00</p>
+                        </div>
+                        <div class="stat-card">
+                            <h3>Hourly Rate</h3>
+                            <p class="stat-value" id="hourlyRate">$0.00/hr</p>
+                        </div>
+                        <div class="stat-card">
+                            <h3>Active Campaigns</h3>
+                            <p class="stat-value" id="activeCampaigns">0</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Profile Tab -->
+                <div id="profile-tab" class="tab-content">
+                    <div class="card">
+                        <div class="card-header">
+                            <h2>Profile Information</h2>
+                        </div>
+                        <div class="card-body">
+                            <form id="profileForm">
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label>Full Name</label>
+                                        <input type="text" id="profileName" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Email</label>
+                                        <input type="email" id="profileEmail" required>
+                                    </div>
+                                </div>
+
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label>Contact Number</label>
+                                        <input type="tel" id="profileContact" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Hourly Rate ($)</label>
+                                        <input type="number" id="profileRate" step="0.01">
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label>About You</label>
+                                    <textarea id="profileAbout" placeholder="Tell us about yourself..."></textarea>
+                                </div>
+
+                                <div class="form-group">
+                                    <label>Work Experience</label>
+                                    <textarea id="profileExperience" placeholder="Describe your experience..."></textarea>
+                                </div>
+
+                                <h3>Social Media Links</h3>
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label>Instagram</label>
+                                        <input type="text" id="profileInstagram" placeholder="@username">
+                                    </div>
+                                    <div class="form-group">
+                                        <label>YouTube</label>
+                                        <input type="text" id="profileYoutube" placeholder="Channel name">
+                                    </div>
+                                </div>
+
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label>Facebook</label>
+                                        <input type="text" id="profileFacebook" placeholder="Profile name">
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Twitter/X</label>
+                                        <input type="text" id="profileTwitter" placeholder="@handle">
+                                    </div>
+                                </div>
+
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label>Snapchat</label>
+                                        <input type="text" id="profileSnapchat" placeholder="@username">
+                                    </div>
+                                </div>
+
+                                <button type="submit" class="btn btn-primary">Save Changes</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Campaigns Tab -->
+                <div id="campaigns-tab" class="tab-content">
+                    <div class="card">
+                        <div class="card-header">
+                            <h2>Available Campaigns</h2>
+                        </div>
+                        <div class="card-body">
+                            <div id="campaignsList" class="campaigns-list">
+                                <!-- Campaigns will be loaded here -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Applied Campaigns Tab -->
+                <div id="applied-tab" class="tab-content">
+                    <div class="card">
+                        <div class="card-header">
+                            <h2>My Applications</h2>
+                        </div>
+                        <div class="card-body">
+                            <div id="appliedList" class="campaigns-list">
+                                <!-- Applied campaigns will be loaded here -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Work History Tab -->
+                <div id="works-tab" class="tab-content">
+                    <div class="card">
+                        <div class="card-header">
+                            <h2>Work History & Projects</h2>
+                        </div>
+                        <div class="card-body">
+                            <div id="worksList" class="campaigns-list">
+                                <!-- Work projects will be loaded here -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Wallet Tab -->
+                <div id="wallet-tab" class="tab-content">
+                    <div class="card">
+                        <div class="card-header">
+                            <h2>💰 Wallet & Earnings</h2>
+                        </div>
+                        <div class="card-body">
+                            <div class="wallet-summary">
+                                <div class="balance-card">
+                                    <h3>Current Balance</h3>
+                                    <p class="balance-amount" id="walletBalance">₹0.00</p>
+                                </div>
+                                <div class="stats-mini">
+                                    <div class="stat">
+                                        <span class="label">Pending Payments</span>
+                                        <span class="value" id="pendingPayments">0</span>
+                                    </div>
+                                    <div class="stat">
+                                        <span class="label">Credited</span>
+                                        <span class="value" id="creditedPayments">0</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div style="margin-top: 30px;">
+                                <h3>📋 Transaction History</h3>
+                                <div id="transactionsList" style="max-height: 400px; overflow-y: auto;">
+                                    <p>Loading transaction history...</p>
+                                </div>
+                            </div>
+
+                            <div style="margin-top: 30px; border-top: 1px solid #ddd; padding-top: 20px;">
+                                <h3>🏦 Bank Details for Payouts</h3>
+                                <form id="payoutAccountForm">
+                                    <div class="form-group">
+                                        <label>Account Holder Name</label>
+                                        <input type="text" id="accountHolderName" placeholder="Your full name" required>
+                                    </div>
+                                    <div class="form-row">
+                                        <div class="form-group">
+                                            <label>Account Number</label>
+                                            <input type="text" id="accountNumber" placeholder="16-digit account number" required>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>IFSC Code</label>
+                                            <input type="text" id="ifscCode" placeholder="e.g., HDFC0001234" required>
+                                        </div>
+                                    </div>
+                                    <div class="form-row">
+                                        <div class="form-group">
+                                            <label>Bank Name</label>
+                                            <input type="text" id="bankName" placeholder="e.g., HDFC Bank" required>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Account Type</label>
+                                            <select id="accountType">
+                                                <option value="savings">Savings</option>
+                                                <option value="checking">Checking</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <button type="submit" class="btn btn-primary">Save Bank Details</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Messages Tab -->
+                <div id="chat-tab" class="tab-content">
+                    <div class="card">
+                        <div class="card-header">
+                            <h2>Messages</h2>
+                        </div>
+                        <div class="card-body">
+                            <p>Chat feature coming soon...</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Modal for Work Updates -->
+    <div id="workUpdateModal" class="modal" style="display: none;">
+        <div class="modal-content">
+            <span class="close" onclick="closeWorkUpdateModal()">&times;</span>
+            <h2>Add Work Update</h2>
+            <form id="workUpdateForm">
+                <div class="form-group">
+                    <label>Update Description</label>
+                    <textarea id="updateDescription" placeholder="Share what you've completed or current progress..." required></textarea>
+                </div>
+                <div class="form-group">
+                    <label>Progress Percentage (0-100)</label>
+                    <input type="number" id="progressPercentage" min="0" max="100" value="0" required>
+                </div>
+                <button type="submit" class="btn btn-primary">Post Update</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Modal for Work Details -->
+    <div id="workDetailsModal" class="modal" style="display: none;">
+        <div class="modal-content">
+            <span class="close" onclick="closeWorkDetailsModal()">&times;</span>
+            <h2>Work Details & Reviews</h2>
+            <div id="workDetailsContent"></div>
+        </div>
+    </div>
+
+    <!-- Modal for Work Dispute Response (Influencer) -->
+    <div id="influencerDisputeModal" class="modal" style="display: none;">
+        <div class="modal-content">
+            <span class="close" onclick="closeInfluencerDisputeModal()">&times;</span>
+            <h2>⚠️ Work Completion Response</h2>
+            <div class="dispute-info">
+                <p><strong>Brand:</strong> <span id="dispBrandName"></span></p>
+                <p><strong>Payment Status:</strong> <strong>DISPUTED</strong> - Please confirm if you completed the work</p>
+            </div>
+            <div class="form-group">
+                <label><strong>Did you complete the work according to requirements?</strong></label>
+                <div style="margin-top: 10px;">
+                    <button class="btn btn-success" onclick="respondToInfluencerDispute(true)">✓ Yes, Work is Complete</button>
+                    <button class="btn btn-danger" onclick="respondToInfluencerDispute(false)">✗ No, Work Not Complete</button>
+                </div>
+            </div>
+            <div class="dispute-note" id="influencerDisputeNote" style="margin-top: 15px; padding: 10px; background: #fff3cd; border-radius: 5px; display:none;">
+                <small id="influencerDisputeNoteText"></small>
+            </div>
+        </div>
+    </div>
+
+    <script src="../js/config.js"></script>
+    <script src="../js/api.js"></script>
+    <script src="../js/main.js"></script>
+    <script src="../js/influencer-dashboard.js"></script>
+</body>
+</html>
